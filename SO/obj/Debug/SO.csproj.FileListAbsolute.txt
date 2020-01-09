@@ -1,0 +1,5 @@
+/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/bin/Debug/SO.exe
+/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/bin/Debug/SO.pdb
+/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/obj/Debug/SO.csprojAssemblyReference.cache
+/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/obj/Debug/SO.exe
+/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/obj/Debug/SO.pdb
