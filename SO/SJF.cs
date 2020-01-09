@@ -55,9 +55,12 @@ namespace SO
                         }
                         break;
                     }
-
                     
+                    
+                    
+
                 }
+                
                 if (status == 1)
                 {
                     status = 0;
@@ -66,8 +69,13 @@ namespace SO
                 {
                     status = 0;
                     time++;
+                    Console.Write(" |");
+                    n--;
                 }
             }
+            
+            
+            
             
            
             Console.WriteLine(" ");
