@@ -9,6 +9,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="FCFS.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
+        <e p="ProcessData.cs" t="Include" />
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />
@@ -16,7 +17,6 @@
         <e p="RR.cs" t="Include" />
         <e p="SJF.cs" t="Include" />
         <e p="SO.csproj" t="IncludeRecursive" />
-        <e p="SortTable.cs" t="Include" />
       </e>
       <e p="TESTcsharp.sln" t="IncludeFlat" />
     </e>

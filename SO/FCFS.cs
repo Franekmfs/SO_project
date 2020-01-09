@@ -12,15 +12,12 @@ namespace SO
         }
         public void Calculate(int[,] processData)
         {
-            SortTable sort = new SortTable();
+            ProcessData processdata = new ProcessData();
             string type = "arrival";
-            int[,] sortedProcessData = sort.SortBy(processData,type);
+            int[,] sortedProcessData = processdata.SortBy(processData,type);
             int[] durationTimeTable = new int[processesCount];
             int[] waitTimeTable = new int[processesCount];
             int[] serviceTimeTable = new int[processesCount];
-
-            string[] columnNames = {"PID  ", "Arrival", "Duration", "Waiting", "Turn   ", "Start   ", "Finish"};
-
             int time = 0;
             Console.Write("|");
            
@@ -29,8 +26,6 @@ namespace SO
                 waitTimeTable[i] = 0;
                 durationTimeTable[i] = sortedProcessData[i, 2];
             }
-
-
             for (int i = 0; i < processesCount; i++)
             {
                 if (sortedProcessData[i, 1] <= time)
@@ -50,35 +45,10 @@ namespace SO
                     i--;
                 }
             }
-            
             double avgWaitTime = 0;
             double avgTurnAroundTime = 0;
+            processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,avgWaitTime,avgTurnAroundTime,time,processesCount);
             
-            Console.WriteLine(" ");
-            
-            for(int i = 0; i < columnNames.Length; i++)
-            {
-                Console.Write(columnNames[i] + " ");
-            }
-            Console.WriteLine("");
-
-            for (int i = 0; i < processesCount; i++)
-            {
-                waitTimeTable[i] = serviceTimeTable[i] - sortedProcessData[i, 1];
-                Console.Write(sortedProcessData[i,0] + "\t"); //PID
-                Console.Write(sortedProcessData[i,1] + " ms\t"); //Arr
-                Console.Write(sortedProcessData[i,2] + " ms\t"); //Dur
-                Console.Write(waitTimeTable[i] + " ms\t"); //Wait
-                Console.Write(sortedProcessData[i,2]+waitTimeTable[i] + " ms\t"); //Turn around
-                Console.Write(serviceTimeTable[i] + " ms\t"); //Start Time
-                Console.Write(serviceTimeTable[i]+sortedProcessData[i,2] + " ms"); //Finish Time
-                Console.WriteLine("");
-                avgWaitTime = avgWaitTime + waitTimeTable[i];
-                avgTurnAroundTime = avgTurnAroundTime + sortedProcessData[i, 2] + waitTimeTable[i];
-            }
-            Console.WriteLine("Average waiting time: "+ avgWaitTime/processesCount + " ms");
-            Console.WriteLine("Average turnaround time: "+ avgTurnAroundTime/processesCount + " ms");
-            Console.WriteLine("Total completion time: "+ time +" ms");
         }
     }
 }

@@ -39,11 +39,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FCFS.cs" />
+    <Compile Include="ProcessData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RR.cs" />
     <Compile Include="SJF.cs" />
-    <Compile Include="SortTable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
