@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Net.Security;
-using Microsoft.Win32;
 
 namespace SO
 {
-
-
     //Code 1 error  - program failure
     //Code 2 error - user failure 
     class Program
@@ -37,19 +33,12 @@ namespace SO
                         break;
                     case "2":
                         processData = processdata.OpenPool();
-
-                        
-                        //obsługa wprowadzania ręcznego do tablicy (muszę sprawdzić, czy wchodzą też nagłówki do tabeli, chyba nie)
-                        
                         break;
                     default:
                         Console.WriteLine("Wrong choose, use only 1 or 2 digits.");
                         break;
                 }
-            
-
-
-
+                
             int processesCount = processData.GetLength(0) - 1;
 
             string[] columnNames = {"PID", "Arrival", "Duration", "Priority"};
@@ -112,13 +101,8 @@ namespace SO
                             Console.WriteLine("Wrong choice");
                             break;
                     }
-
                 }
-
         }
-
-        }
-
-
     }
+}
 

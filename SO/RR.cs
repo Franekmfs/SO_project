@@ -10,7 +10,6 @@ namespace SO
         {
             this.processesCount = processesCount;
         }
-
         public void Calculate(int[,] processData)
         {
             ProcessData processdata = new ProcessData();
@@ -70,7 +69,6 @@ namespace SO
                     Console.Write(" |");
                     n--;
                 }
-
             }
             processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,firtsDigit,finishTimeTable,avgWaitTime,avgTurnAroundTime,time,processesCount);
         }
