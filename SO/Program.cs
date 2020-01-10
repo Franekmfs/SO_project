@@ -20,15 +20,14 @@ namespace SO
                         string filePath = "/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/process.txt";
                         Console.WriteLine(
                             "If you want to select different path, input the file localisation now (actual path: " +
-                            filePath);
-                        /*
-                        string userinput = Console.ReadLine();
-                        if(!userinput.Equals(ConsoleKey.Enter)) 
+                            filePath + " )");
+                        
+                        string userInput = Console.ReadLine();
+                        if(!(userInput == "")) 
                         {
-                            filePath = userinput;
+                            filePath = userInput;
                         }
-                        //nie do końca łapie że kiedy jest enter to ma przejść dalej
-                        */
+                        
                         processData = processdata.ReadFromFile(filePath);
                         break;
                     case "2":
