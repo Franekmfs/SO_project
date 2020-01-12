@@ -42,6 +42,7 @@
     <Compile Include="ProcessData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PS.cs" />
     <Compile Include="RR.cs" />
     <Compile Include="SJF.cs" />
   </ItemGroup>

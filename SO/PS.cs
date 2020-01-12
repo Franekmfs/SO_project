@@ -2,36 +2,38 @@ using System;
 
 namespace SO
 {
-    public class Sjf
+    public class Ps
     {
         private int processesCount;
 
-        public Sjf(int processesCount)
+        public Ps(int processesCount)
         {
-             this.processesCount = processesCount;
+            this.processesCount = processesCount;
         }
 
         public void Calculate(int[,] processData)
         {
             ProcessData processdata = new ProcessData();
-            string type = "duration";
-            string gantt;
+            string type = "priority";
+            int[,] sortedProcessData = processdata.SortBy(processData, type);
             int tempDuration;
+            string gantt;
             int[] durationTimeTable = new int[processesCount];
+            int[] priorityTimeTable = new int[processesCount];
             int[] waitTimeTable = new int[processesCount];
             int[] serviceTimeTable = new int[processesCount];
-            int[,] sortedProcessData = processdata.SortBy(processData, type);
             int time = 0;
             int status=0;
             double avgWaitTime = 0;
             double avgTurnAroundTime = 0;
-            
-            Console.Write("|");
             gantt = "|";
+            Console.Write("|");
+            
             for (int i = 0; i < processesCount; i++)
             {
                 waitTimeTable[i] = 0;
                 durationTimeTable[i] = sortedProcessData[i, 2];
+                priorityTimeTable[i] = sortedProcessData[i, 3];
             }
             for (int n = 0; n < processesCount; n++)
             {
@@ -50,6 +52,8 @@ namespace SO
                             gantt += sortedProcessData[i, 0] + "|";
                             status = 1;
                         }
+
+                        priorityTimeTable[i]++;
                         break;
                     }
                 }
@@ -66,7 +70,7 @@ namespace SO
                     n--;
                 }
             }
-            processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,avgWaitTime,avgTurnAroundTime,time,processesCount,"Shortest Job First",gantt);
+            processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,avgWaitTime,avgTurnAroundTime,time,processesCount,type,"Priority Scheduling",gantt);
         }
     }
 }

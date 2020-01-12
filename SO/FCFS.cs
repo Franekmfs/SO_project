@@ -14,12 +14,14 @@ namespace SO
         {
             ProcessData processdata = new ProcessData();
             string type = "arrival";
+            string gantt;
             int[,] sortedProcessData = processdata.SortBy(processData,type);
             int[] durationTimeTable = new int[processesCount];
             int[] waitTimeTable = new int[processesCount];
             int[] serviceTimeTable = new int[processesCount];
             int time = 0;
             Console.Write("|");
+            gantt = "|";
            
             for (int i = 0; i < processesCount; i++)
             {
@@ -34,6 +36,7 @@ namespace SO
                     do
                     {
                         Console.Write(sortedProcessData[i, 0] + "|");
+                        gantt += sortedProcessData[i, 0] + "|";
                         durationTimeTable[i]--;
                         time++;
                     } while (durationTimeTable[i] > 0);
@@ -41,13 +44,14 @@ namespace SO
                 else
                 {
                     Console.Write(" |");
+                    gantt += " |";
                     time++;
                     i--;
                 }
             }
             double avgWaitTime = 0;
             double avgTurnAroundTime = 0;
-            processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,avgWaitTime,avgTurnAroundTime,time,processesCount);
+            processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,avgWaitTime,avgTurnAroundTime,time,processesCount,"First Come First Serve",gantt);
             
         }
     }

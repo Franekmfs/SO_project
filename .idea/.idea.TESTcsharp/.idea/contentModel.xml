@@ -14,6 +14,7 @@
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />
         </e>
+        <e p="PS.cs" t="Include" />
         <e p="RR.cs" t="Include" />
         <e p="SJF.cs" t="Include" />
         <e p="SO.csproj" t="IncludeRecursive" />

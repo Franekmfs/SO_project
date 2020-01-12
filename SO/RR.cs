@@ -16,7 +16,7 @@ namespace SO
             
             int quantum = processdata.AskQuantum();
             int time = 0;
-            
+            string gantt;
             int counter = 0;
             int totalTime = 0;
             int[,] sortedProcessData = processdata.SortBy(processData,"pid");
@@ -28,6 +28,7 @@ namespace SO
             double avgTurnAroundTime = 0;
 
             Console.Write("|");
+            gantt = "|";
 
             for (int i = 0; i < processesCount; i++)
             {
@@ -50,6 +51,7 @@ namespace SO
                         do
                         {
                             Console.Write(sortedProcessData[i, 0] + "|");
+                            gantt += sortedProcessData[i, 0] + "|";
                             durationTimeTable[i]--;
                             time++;
                             counter++;
@@ -67,10 +69,11 @@ namespace SO
                 {
                     time++;
                     Console.Write(" |");
+                    gantt += " |";
                     n--;
                 }
             }
-            processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,firtsDigit,finishTimeTable,avgWaitTime,avgTurnAroundTime,time,processesCount);
+            processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,firtsDigit,finishTimeTable,avgWaitTime,avgTurnAroundTime,time,processesCount,"Round Robin",gantt,quantum);
         }
     }
 }

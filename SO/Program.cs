@@ -34,7 +34,8 @@ namespace SO
                         processData = processdata.OpenPool();
                         break;
                     default:
-                        Console.WriteLine("Wrong choose, use only 1 or 2 digits.");
+                        Console.WriteLine("Wrong choose, use only digits 1 or 2 .");
+                        Environment.Exit(2);
                         break;
                 }
                 
@@ -68,6 +69,7 @@ namespace SO
                     Console.WriteLine("1. FCFS");
                     Console.WriteLine("2. SJF");
                     Console.WriteLine("3. Round Robin");
+                    Console.WriteLine("4. Priority Scheduling with aging");
                     Console.WriteLine("0. Exit");
                     switch (Console.ReadLine())
                     {
@@ -94,6 +96,13 @@ namespace SO
                             Console.WriteLine(" ");
                             Rr rr = new Rr(processesCount);
                             rr.Calculate(processData);
+                            break;
+                        
+                        case "4":
+                            Console.WriteLine("Choosed Priority Scheduling with aging");
+                            Console.WriteLine(" ");
+                            Ps ps = new Ps(processesCount);
+                            ps.Calculate(processData);
                             break;
 
                         default:

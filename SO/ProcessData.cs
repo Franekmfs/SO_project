@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 
 namespace SO
 {
@@ -22,42 +23,265 @@ namespace SO
             }
 
             int[] temp = new int[4];
-            for (int i = 0; i < processData.GetLength(0) - 2; i++)
+            if (type != 3)
             {
-                for (int j = 0; j < processData.GetLength(0) - 2; j++)
+                for (int i = 0; i < processData.GetLength(0) - 2; i++)
                 {
-
-                    if (processData[j, type] > processData[j + 1, type])
+                    for (int j = 0; j < processData.GetLength(0) - 2; j++)
                     {
-                        for (int k = 0; k < 4; k++)
+
+                        if (processData[j, type] > processData[j + 1, type])
                         {
-                            temp[k] = processData[j, k];
-                            processData[j, k] = processData[j + 1, k];
-                            processData[j + 1, k] = temp[k];
+                            for (int k = 0; k < 4; k++)
+                            {
+                                temp[k] = processData[j, k];
+                                processData[j, k] = processData[j + 1, k];
+                                processData[j + 1, k] = temp[k];
+                            }
                         }
                     }
                 }
             }
+            else
+            {
+                for (int i = 0; i < processData.GetLength(0) - 2; i++)
+                {
+                    for (int j = 0; j < processData.GetLength(0) - 2; j++)
+                    {
+
+                        if (processData[j, type] < processData[j + 1, type])
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                temp[k] = processData[j, k];
+                                processData[j, k] = processData[j + 1, k];
+                                processData[j + 1, k] = temp[k];
+                            }
+                        }
+                    }
+                }
+            }
+
             return processData;
         }
 
-        public void DisplayTable(int[,] processData)
+        public void Report(int[] waitTimeTable, int[] serviceTimeTable, int[,] sortedProcessData, int time, int processesCount, string name, string gantt)
         {
+            
+            string filePath = "/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/"+name+"_report.txt";
+            Console.WriteLine("If you want to select different path, input the file localisation now");
+            Console.WriteLine("actual path: " + filePath + " )");
 
-            for (int i = 0; i < processData.GetLength(0) - 1; i++)
+            double avgWaitTime = 0;
+            double avgTurnAroundTime = 0;
+            string userInput = Console.ReadLine();
+            if(!(userInput == "")) 
             {
-                for (int j = 0; j < 4; j++)
-                {
-                    Console.Write(processData[i, j] + "\t");
-                }
-
-                Console.WriteLine(" ");
+                filePath = userInput;
             }
+            
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch
+                {
+                    Console.WriteLine("Cannot access file in the provided path. Exiting.");
+                    Environment.Exit(2);
+                }
+            }
+            
+            using (FileStream fsream = File.Create(filePath))
+            {
+                using (StreamWriter stwr = new StreamWriter(fsream))
+                {
+                    
+                    stwr.WriteLine(name + " report");
+                    stwr.WriteLine("");
+                    stwr.WriteLine(gantt);
+                    
+                    string[] columnNames = {"PID  ", "Arrival", "Duration", "Waiting", "Turn   ", "Start   ", "Finish"};
+                    stwr.WriteLine("");
+                    for (int i = 0; i < columnNames.Length; i++)
+                    {
+                        stwr.Write(columnNames[i] + " ");
+                    }
 
+                    stwr.WriteLine("");
+            
+                    for (int i = 0; i < processesCount; i++)
+                    {
+                        waitTimeTable[i] = serviceTimeTable[i] - sortedProcessData[i, 1];
+                        stwr.Write(sortedProcessData[i, 0] + "\t"); //PID
+                        stwr.Write(sortedProcessData[i, 1] + " ms\t"); //Arr
+                        stwr.Write(sortedProcessData[i, 2] + " ms\t"); //Dur
+                        stwr.Write(waitTimeTable[i] + " ms\t"); //Wait
+                        stwr.Write(sortedProcessData[i, 2] + waitTimeTable[i] + " ms\t"); //Turn around
+                        stwr.Write(serviceTimeTable[i] + " ms\t"); //Start Time
+                        stwr.Write(serviceTimeTable[i] + sortedProcessData[i, 2] + " ms"); //Finish Time
+                        stwr.WriteLine("");
+                        avgWaitTime = avgWaitTime + waitTimeTable[i];
+                        avgTurnAroundTime = avgTurnAroundTime + sortedProcessData[i, 2] + waitTimeTable[i];
+                    }
+                    stwr.WriteLine("Average waiting time: " + avgWaitTime / processesCount + " ms");
+                    stwr.WriteLine("Average turnaround time: " + avgTurnAroundTime / processesCount + " ms");
+                    stwr.WriteLine("Total completion time: " + time + " ms");
+                }
+            }
+            
         }
 
-        public void DisplayData(int[] waitTimeTable, int[] serviceTimeTable, int[,] sortedProcessData, int[] firstDigit,
-            int[] finishTimeTable, double avgWaitTime, double avgTurnAroundTime, int time, int processesCount)
+        
+        public void Report(int[] waitTimeTable, int[] serviceTimeTable, int[,] sortedProcessData,int time, int processesCount, string type, string name, string gantt)
+        {
+            
+            string filePath = "/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/"+name+"_report.txt";
+            Console.WriteLine("If you want to select different path, input the file localisation now");
+            Console.WriteLine("actual path: " + filePath + " )");
+
+            double avgWaitTime = 0;
+            double avgTurnAroundTime = 0;
+            
+            string userInput = Console.ReadLine();
+            if(!(userInput == "")) 
+            {
+                filePath = userInput;
+            }
+            
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch
+                {
+                    Console.WriteLine("Cannot access file in the provided path. Exiting.");
+                    Environment.Exit(2);
+                }
+            }
+            
+            using (FileStream fsream = File.Create(filePath))
+            {
+                using (StreamWriter stwr = new StreamWriter(fsream))
+                {
+                    
+                    stwr.WriteLine(name + " report");
+                    stwr.WriteLine("");
+                    stwr.WriteLine(gantt);
+                    
+                    string[] columnNames = {"PID  ", "Arrival", "Duration", "Waiting", "Turn   ", "Start   ", "Finish ", "Priority  "};
+                    stwr.WriteLine("");
+                    for (int i = 0; i < columnNames.Length; i++)
+                    {
+                        stwr.Write(columnNames[i] + " ");
+                    }
+
+                    stwr.WriteLine("");
+            
+                    for (int i = 0; i < processesCount; i++)
+                    {
+                        waitTimeTable[i] = serviceTimeTable[i] - sortedProcessData[i, 1];
+                        stwr.Write(sortedProcessData[i, 0] + "\t"); //PID
+                        stwr.Write(sortedProcessData[i, 1] + " ms\t"); //Arr
+                        stwr.Write(sortedProcessData[i, 2] + " ms\t"); //Dur
+                        stwr.Write(waitTimeTable[i] + " ms\t"); //Wait
+                        stwr.Write(sortedProcessData[i, 2] + waitTimeTable[i] + " ms\t"); //Turn around
+                        stwr.Write(serviceTimeTable[i] + " ms\t"); //Start Time
+                        stwr.Write(serviceTimeTable[i] + sortedProcessData[i, 2] + " ms\t"); //Finish Time
+                        stwr.Write(sortedProcessData[i,3] + " ms"); //Priority
+                        stwr.WriteLine("");
+                        avgWaitTime = avgWaitTime + waitTimeTable[i];
+                        avgTurnAroundTime = avgTurnAroundTime + sortedProcessData[i, 2] + waitTimeTable[i];
+                    }
+                    stwr.WriteLine("Average waiting time: " + avgWaitTime / processesCount + " ms");
+                    stwr.WriteLine("Average turnaround time: " + avgTurnAroundTime / processesCount + " ms");
+                    stwr.WriteLine("Total completion time: " + time + " ms");
+                }
+            }
+            
+        }
+
+        public void ReportRR(int[] waitTimeTable, int[] serviceTimeTable, int[,] sortedProcessData, int time, int processesCount, string name, string gantt, int[] firstDigit, int[] finishTimeTable, int quantum)
+        {
+            
+            string filePath = "/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/"+name+"_report.txt";
+            Console.WriteLine("If you want to select different path, input the file localisation now");
+            Console.WriteLine("actual path: " + filePath + " )");
+            double avgWaitTime = 0;
+            double avgTurnAroundTime = 0;
+            string userInput = Console.ReadLine();
+            if(!(userInput == "")) 
+            {
+                filePath = userInput;
+            }
+            
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    File.Delete(filePath);
+                }
+                catch
+                {
+                    Console.WriteLine("Cannot access file in the provided path. Exiting.");
+                    Environment.Exit(2);
+                }
+            }
+            
+            using (FileStream fsream = File.Create(filePath))
+            {
+                using (StreamWriter stwr = new StreamWriter(fsream))
+                {
+                    
+                    stwr.WriteLine(name + " report");
+                    stwr.WriteLine("");
+                    stwr.WriteLine("Quantum: " + quantum);
+                    stwr.WriteLine(gantt);
+                    
+                    string[] columnNames = {"PID  ", "Arrival", "Duration", "Waiting", "Turn   ", "Start   ", "Finish "};
+                    stwr.WriteLine("");
+                    for (int i = 0; i < columnNames.Length; i++)
+                    {
+                        stwr.Write(columnNames[i] + " ");
+                    }
+
+                    stwr.WriteLine("");
+                    
+                    for (int i = 0; i < processesCount; i++)
+                    {
+                        waitTimeTable[i] = serviceTimeTable[i] - sortedProcessData[i, 1];
+
+                        if (sortedProcessData[i, 0] == firstDigit[0])
+                        {
+                            waitTimeTable[i] = 0;
+                        }
+
+                        stwr.Write(sortedProcessData[i, 0] + "\t"); //PID
+                        stwr.Write(sortedProcessData[i, 1] + " ms\t"); //Arrival
+                        stwr.Write(sortedProcessData[i, 2] + " ms\t"); //Duration
+                        stwr.Write(waitTimeTable[i] + " ms\t"); //Wait
+                        stwr.Write(finishTimeTable[i] - sortedProcessData[i, 1] + " ms\t"); //Turn around
+                        stwr.Write(serviceTimeTable[i] + " ms\t"); //Start Time
+                        stwr.Write(finishTimeTable[i] + " ms"); //Finish Time
+                        stwr.WriteLine("");
+                        avgWaitTime = avgWaitTime + waitTimeTable[i];
+                        avgTurnAroundTime = avgTurnAroundTime + sortedProcessData[i, 2] + waitTimeTable[i];
+                    }
+
+                    stwr.WriteLine("Average waiting time: " + avgWaitTime / processesCount + " ms");
+                    stwr.WriteLine("Average turnaround time: " + avgTurnAroundTime / processesCount + " ms");
+                    stwr.WriteLine("Total completion time: " + time + " ms");
+
+                }
+            }
+            
+        }
+
+
+        public void DisplayData(int[] waitTimeTable, int[] serviceTimeTable, int[,] sortedProcessData, int[] firstDigit, int[] finishTimeTable, double avgWaitTime, double avgTurnAroundTime, int time, int processesCount, string name, string gantt, int quantum)
         {
             string[] columnNames = {"PID  ", "Arrival", "Duration", "Waiting", "Turn   ", "Start   ", "Finish"};
 
@@ -95,11 +319,18 @@ namespace SO
             Console.WriteLine("Average waiting time: " + avgWaitTime / processesCount + " ms");
             Console.WriteLine("Average turnaround time: " + avgTurnAroundTime / processesCount + " ms");
             Console.WriteLine("Total completion time: " + time + " ms");
-
+            
+            Console.WriteLine("");
+            Console.Write("Do You want to create report (Y / N) ? ");
+            string report = Console.ReadLine();
+            if (report == "y" || report == "Y" || report == "yes" || report == "Yes" || report == "YES")
+            {
+                ReportRR(waitTimeTable, serviceTimeTable, sortedProcessData,time, processesCount,name, gantt,firstDigit,finishTimeTable,quantum);
+            }
         }
 
         public void DisplayData(int[] waitTimeTable, int[] serviceTimeTable, int[,] sortedProcessData,
-            double avgWaitTime, double avgTurnAroundTime, int time, int processesCount)
+            double avgWaitTime, double avgTurnAroundTime, int time, int processesCount, string name, string gantt)
         {
             string[] columnNames = {"PID  ", "Arrival", "Duration", "Waiting", "Turn   ", "Start   ", "Finish"};
 
@@ -131,8 +362,59 @@ namespace SO
             Console.WriteLine("Average turnaround time: " + avgTurnAroundTime / processesCount + " ms");
             Console.WriteLine("Total completion time: " + time + " ms");
 
+            Console.WriteLine("");
+            Console.Write("Do You want to create report (Y / N) ? ");
+            string report = Console.ReadLine();
+            if (report == "y" || report == "Y" || report == "yes" || report == "Yes" || report == "YES")
+            {
+                Report(waitTimeTable, serviceTimeTable, sortedProcessData, time, processesCount, name, gantt);
+            }
         }
 
+        public void DisplayData(int[] waitTimeTable, int[] serviceTimeTable, int[,] sortedProcessData,
+            double avgWaitTime, double avgTurnAroundTime, int time, int processesCount, string type, string name, string gantt)
+        {
+            string[] columnNames = {"PID  ", "Arrival", "Duration", "Waiting", "Turn   ", "Start   ", "Finish ", "Priority  "};
+
+            Console.WriteLine("");
+
+            for (int i = 0; i < columnNames.Length; i++)
+            {
+                Console.Write(columnNames[i] + " ");
+            }
+
+            Console.WriteLine("");
+            
+            for (int i = 0; i < processesCount; i++)
+            {
+                waitTimeTable[i] = serviceTimeTable[i] - sortedProcessData[i, 1];
+                Console.Write(sortedProcessData[i, 0] + "\t"); //PID
+                Console.Write(sortedProcessData[i, 1] + " ms\t"); //Arr
+                Console.Write(sortedProcessData[i, 2] + " ms\t"); //Dur
+                Console.Write(waitTimeTable[i] + " ms\t"); //Wait
+                Console.Write(sortedProcessData[i, 2] + waitTimeTable[i] + " ms\t"); //Turn around
+                Console.Write(serviceTimeTable[i] + " ms\t"); //Start Time
+                Console.Write(serviceTimeTable[i] + sortedProcessData[i, 2] + " ms\t"); //Finish Time
+                Console.Write(sortedProcessData[i,3]); //Priority
+                Console.WriteLine("");
+                avgWaitTime = avgWaitTime + waitTimeTable[i];
+                avgTurnAroundTime = avgTurnAroundTime + sortedProcessData[i, 2] + waitTimeTable[i];
+            }
+
+            Console.WriteLine("Average waiting time: " + avgWaitTime / processesCount + " ms");
+            Console.WriteLine("Average turnaround time: " + avgTurnAroundTime / processesCount + " ms");
+            Console.WriteLine("Total completion time: " + time + " ms");
+
+            
+            Console.WriteLine("");
+            Console.Write("Do You want to create report (Y / N) ? ");
+            string report = Console.ReadLine();
+            if (report == "y" || report == "Y" || report == "yes" || report == "Yes" || report == "YES")
+            {
+                Report(waitTimeTable, serviceTimeTable, sortedProcessData, time, processesCount, type, name, gantt);
+            }
+        }
+        
         public int AskQuantum()
         {
             string readedValue;
@@ -229,5 +511,21 @@ namespace SO
 
             return new int[,] { };
         }
+        
+        public void DisplayTable(int[,] processData)
+        {
+
+            for (int i = 0; i < processData.GetLength(0) - 1; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Console.Write(processData[i, j] + "\t");
+                }
+
+                Console.WriteLine(" ");
+            }
+
+        }
+
     }
 }
