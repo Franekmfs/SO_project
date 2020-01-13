@@ -35,6 +35,7 @@ namespace SO
             {
                 totalTime = totalTime + sortedProcessData[i, 2];
                 durationTimeTable[i] = sortedProcessData[i, 2];
+                serviceTimeTable[i] = 0;
             }
             int[] firtsDigit = new int[totalTime];
             for (int n = 0; n < processesCount; n++)

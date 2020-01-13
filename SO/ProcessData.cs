@@ -322,6 +322,10 @@ namespace SO
             for (int i = 0; i < processesCount; i++)
             {
                 waitTimeTable[i] = finishTimeTable[i] - sortedProcessData[i, 1] - sortedProcessData[i, 2];
+                if (waitTimeTable[i] < 0)
+                {
+                    waitTimeTable[i] = 0;
+                }
                 Console.Write(sortedProcessData[i, 0] + "\t"); //PID
                 Console.Write(sortedProcessData[i, 1] + " ms\t"); //Arrival
                 Console.Write(sortedProcessData[i, 2] + " ms\t"); //Duration
@@ -454,8 +458,6 @@ namespace SO
 
         public int[,] ReadFromFile(string filePath)
         {
-
-    Console.WriteLine("TEST");
             if (!File.Exists(filePath))
             {
                 Console.WriteLine("File in provided path doesn't exist.");
@@ -475,8 +477,6 @@ namespace SO
                     processData[i - 1, j] = Convert.ToInt32(splittedInputFile[j]);
                 }
             }
-
-
             return (processData);
         }
 

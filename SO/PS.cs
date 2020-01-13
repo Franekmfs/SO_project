@@ -15,7 +15,7 @@ namespace SO
         {
             ProcessData processdata = new ProcessData();
             string type = "priority";
-            int[,] sortedProcessData = processdata.SortBy(processData, type);
+            int[,] sortedProcessData = processdata.SortBy(processdata.SortBy(processData,"duration"), type);
             int tempDuration;
             string gantt;
             int[] durationTimeTable = new int[processesCount];
@@ -28,6 +28,7 @@ namespace SO
             double avgTurnAroundTime = 0;
             gantt = "|";
             Console.Write("|");
+            processdata.DisplayTable(sortedProcessData);
             
             for (int i = 0; i < processesCount; i++)
             {
