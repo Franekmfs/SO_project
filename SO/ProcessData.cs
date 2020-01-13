@@ -455,7 +455,7 @@ namespace SO
         public int[,] ReadFromFile(string filePath)
         {
 
-
+    Console.WriteLine("TEST");
             if (!File.Exists(filePath))
             {
                 Console.WriteLine("File in provided path doesn't exist.");
