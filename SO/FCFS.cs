@@ -5,7 +5,6 @@ namespace SO
     public class Fcfs
     {
         private int processesCount;
-
         public Fcfs(int processesCount)
         {
             this.processesCount = processesCount;

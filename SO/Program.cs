@@ -15,7 +15,6 @@ namespace SO
             ProcessData processdata = new ProcessData();
             int[,] processData = new int[,] { };
 
-
                 PlatformID OS = OSVersion.Platform;
                 Console.WriteLine("Select data input type: ");
                 Console.WriteLine("1. Input from file");

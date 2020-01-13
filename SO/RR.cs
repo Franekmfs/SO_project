@@ -5,7 +5,6 @@ namespace SO
     public class Rr
     {
         private int processesCount;
-
         public Rr(int processesCount)
         {
             this.processesCount = processesCount;

@@ -5,7 +5,6 @@ namespace SO
     public class Sjf
     {
         private int processesCount;
-
         public Sjf(int processesCount)
         {
              this.processesCount = processesCount;

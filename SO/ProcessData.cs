@@ -303,8 +303,7 @@ namespace SO
             }
             
         }
-
-
+        
         public void DisplayData(int[] waitTimeTable, int[] serviceTimeTable, int[,] sortedProcessData, int[] firstDigit, int[] finishTimeTable, double avgWaitTime, double avgTurnAroundTime, int time, int processesCount, string name, string gantt, int quantum)
         {
             string[] columnNames = {"PID  ", "Arrival", "Duration", "Waiting", "Turn   ", "Start   ", "Finish"};
