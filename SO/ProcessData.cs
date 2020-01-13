@@ -323,13 +323,14 @@ namespace SO
             {
                 //waitTimeTable[i] = serviceTimeTable[i] - sortedProcessData[i, 1];
                 //wait = turn - dur
-                waitTimeTable[i] = finishTimeTable[i] - sortedProcessData[i, 1] - sortedProcessData[i, 2];
-
+                //waitTimeTable[i] = finishTimeTable[i] - sortedProcessData[i, 1] - sortedProcessData[i, 2];
+                //waitTimeTable[i] = 
+             /*   
                 if (sortedProcessData[i, 0] == firstDigit[0])
                 {
                     waitTimeTable[i] = 0;
                 }
-
+*/
                 Console.Write(sortedProcessData[i, 0] + "\t"); //PID
                 Console.Write(sortedProcessData[i, 1] + " ms\t"); //Arrival
                 Console.Write(sortedProcessData[i, 2] + " ms\t"); //Duration

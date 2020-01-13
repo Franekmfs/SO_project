@@ -35,8 +35,10 @@ namespace SO
             {
                 totalTime = totalTime + sortedProcessData[i, 2];
                 durationTimeTable[i] = sortedProcessData[i, 2];
+                waitTimeTable[i] = 0;
             }
-            
+
+            int temp;
             int[] firtsDigit = new int[totalTime];
             for (int n = 0; n < processesCount; n++)
             {
@@ -53,18 +55,30 @@ namespace SO
                         {
                             Console.Write(sortedProcessData[i, 0] + "|");
                             gantt += sortedProcessData[i, 0] + "|";
+                            
+                            for (int j = 0; j < processesCount; j++)
+                            {
+                                if (sortedProcessData[j, 1] < time + 1 && sortedProcessData[i,0] != sortedProcessData[j,0])
+                                {
+                                    waitTimeTable[j] = waitTimeTable[j] + 1;
+                                }
+                            }
+                            
                             durationTimeTable[i]--;
                             time++;
                             counter++;
-                           
+                            
+                            
                             if (durationTimeTable[i] <= 0)
                             {
                                 break;
                             }
+                            
                         } while (quantum > counter);
                         
                         finishTimeTable[i] = time;
                     }
+         
 
                     runs++;
                 }
