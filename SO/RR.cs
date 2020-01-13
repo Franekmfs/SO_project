@@ -19,6 +19,7 @@ namespace SO
             string gantt;
             int counter = 0;
             int totalTime = 0;
+            int runs = 0;
             int[,] sortedProcessData = processdata.SortBy(processData,"pid");
             int[] durationTimeTable = new int[processesCount];
             int[] waitTimeTable = new int[processesCount];
@@ -44,7 +45,7 @@ namespace SO
                     if (sortedProcessData[i, 1] < time+1 && durationTimeTable[i]>0)
                     {
                         counter = 0;
-                        if (serviceTimeTable[i] == 0)
+                        if (serviceTimeTable[i] == 0 && runs < processesCount)
                         {
                             serviceTimeTable[i] = time;
                         }
@@ -61,9 +62,11 @@ namespace SO
                                 break;
                             }
                         } while (quantum > counter);
+                        
                         finishTimeTable[i] = time;
                     }
 
+                    runs++;
                 }
                 if (sortedProcessData[n, 1] > time && durationTimeTable[n] >= 0)
                 {

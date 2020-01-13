@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 
 namespace SO
 {
-    //Code 1 error  - program failure
+    //Code 0 - 
+    //Code 1 error - program failure
     //Code 2 error - user failure 
     class Program
     {
@@ -17,7 +20,8 @@ namespace SO
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        string filePath = "/Users/franciszekprzewozny/RiderProjects/TESTcsharp/SO/process.txt";
+                        
+                        string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/process.txt";
                         Console.WriteLine(
                             "If you want to select different path, input the file localisation now (actual path: " +
                             filePath + " )");
@@ -74,7 +78,7 @@ namespace SO
                     switch (Console.ReadLine())
                     {
                         case "0":
-                            Environment.Exit(1);
+                            Environment.Exit(0);
                             break;
 
                         case "1":
