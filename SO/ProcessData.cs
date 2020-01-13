@@ -321,16 +321,7 @@ namespace SO
 
             for (int i = 0; i < processesCount; i++)
             {
-                //waitTimeTable[i] = serviceTimeTable[i] - sortedProcessData[i, 1];
-                //wait = turn - dur
-                //waitTimeTable[i] = finishTimeTable[i] - sortedProcessData[i, 1] - sortedProcessData[i, 2];
-                //waitTimeTable[i] = 
-             /*   
-                if (sortedProcessData[i, 0] == firstDigit[0])
-                {
-                    waitTimeTable[i] = 0;
-                }
-*/
+                waitTimeTable[i] = finishTimeTable[i] - sortedProcessData[i, 1] - sortedProcessData[i, 2];
                 Console.Write(sortedProcessData[i, 0] + "\t"); //PID
                 Console.Write(sortedProcessData[i, 1] + " ms\t"); //Arrival
                 Console.Write(sortedProcessData[i, 2] + " ms\t"); //Duration
@@ -449,7 +440,6 @@ namespace SO
             readedValue = Console.ReadLine();
             if (int.TryParse(readedValue, out int quantum))
             {
-                Console.Write(quantum);
                 Console.WriteLine("");
                 return quantum;
             }

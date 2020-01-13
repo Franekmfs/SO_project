@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using static System.Environment;
 
 namespace SO
 {
@@ -14,14 +15,24 @@ namespace SO
             ProcessData processdata = new ProcessData();
             int[,] processData = new int[,] { };
 
-            Console.WriteLine("Select data input type: ");
+
+                PlatformID OS = OSVersion.Platform;
+                Console.WriteLine("Select data input type: ");
                 Console.WriteLine("1. Input from file");
                 Console.WriteLine("2. Input from keyboard");
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        
-                        string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/process.txt";
+                        string slash;
+                        if (OS == PlatformID.Unix)
+                        {
+                            slash = @"/";
+                        }
+                        else
+                        {
+                            slash = @"\";
+                        }
+                        string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + slash + "process.txt";
                         Console.WriteLine(
                             "If you want to select different path, input the file localisation now (actual path: " +
                             filePath + " )");
@@ -39,7 +50,7 @@ namespace SO
                         break;
                     default:
                         Console.WriteLine("Wrong choose, use only digits 1 or 2 .");
-                        Environment.Exit(2);
+                        Exit(2);
                         break;
                 }
                 
@@ -78,7 +89,7 @@ namespace SO
                     switch (Console.ReadLine())
                     {
                         case "0":
-                            Environment.Exit(0);
+                            Exit(0);
                             break;
 
                         case "1":
