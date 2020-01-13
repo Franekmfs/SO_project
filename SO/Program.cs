@@ -5,7 +5,7 @@ using static System.Environment;
 
 namespace SO
 {
-    //Code 0 - 
+    //Code 0 - Closing signal
     //Code 1 error - program failure
     //Code 2 error - user failure 
     class Program
