@@ -39,7 +39,7 @@ namespace SO
                         gantt += sortedProcessData[i, 0] + "|";
                         durationTimeTable[i]--;
                         time++;
-                        Thread.Sleep(100);
+                        Thread.Sleep(50);
 
                     } while (durationTimeTable[i] > 0);
                 }
@@ -49,7 +49,7 @@ namespace SO
                     gantt += " |";
                     time++;
                     i--;
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
 
                 }
             }

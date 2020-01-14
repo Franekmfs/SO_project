@@ -51,7 +51,7 @@ namespace SO
                             Console.Write(sortedProcessData[i, 0] + "|");
                             gantt += sortedProcessData[i, 0] + "|";
                             status = 1;
-                            Thread.Sleep(100);
+                            Thread.Sleep(50);
                         }
 
                         priorityTimeTable[i]++;
@@ -69,7 +69,7 @@ namespace SO
                     Console.Write(" |");
                     gantt += " |";
                     n--;
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
                 }
             }
             processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,avgWaitTime,avgTurnAroundTime,time,processesCount,type,"Priority Scheduling",gantt);
