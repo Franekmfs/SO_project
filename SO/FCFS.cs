@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace SO
 {
@@ -38,6 +39,8 @@ namespace SO
                         gantt += sortedProcessData[i, 0] + "|";
                         durationTimeTable[i]--;
                         time++;
+                        Thread.Sleep(100);
+
                     } while (durationTimeTable[i] > 0);
                 }
                 else
@@ -46,6 +49,8 @@ namespace SO
                     gantt += " |";
                     time++;
                     i--;
+                    Thread.Sleep(100);
+
                 }
             }
             double avgWaitTime = 0;

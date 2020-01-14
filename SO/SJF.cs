@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace SO
 {
@@ -48,6 +49,8 @@ namespace SO
                             Console.Write(sortedProcessData[i, 0] + "|");
                             gantt += sortedProcessData[i, 0] + "|";
                             status = 1;
+                            Thread.Sleep(100);
+
                         }
                         break;
                     }
@@ -63,6 +66,8 @@ namespace SO
                     Console.Write(" |");
                     gantt += " |";
                     n--;
+                    Thread.Sleep(100);
+
                 }
             }
             processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,avgWaitTime,avgTurnAroundTime,time,processesCount,"Shortest Job First",gantt);

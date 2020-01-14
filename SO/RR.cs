@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace SO
 {
@@ -55,8 +56,8 @@ namespace SO
                             durationTimeTable[i]--;
                             time++;
                             counter++;
-                            
-                            
+                            Thread.Sleep(100);
+
                             if (durationTimeTable[i] <= 0)
                             {
                                 break;
@@ -74,6 +75,7 @@ namespace SO
                     Console.Write(" |");
                     gantt += " |";
                     n--;
+                    Thread.Sleep(100);
                 }
             }
             processdata.DisplayData(waitTimeTable,serviceTimeTable,sortedProcessData,firtsDigit,finishTimeTable,avgWaitTime,avgTurnAroundTime,time,processesCount,"Round Robin",gantt,quantum);

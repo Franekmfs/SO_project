@@ -92,28 +92,28 @@ namespace SO
                             break;
 
                         case "1":
-                            Console.WriteLine("Choosed FCFS");
+                            Console.WriteLine("Chosen FCFS");
                             Console.WriteLine(" ");
                             Fcfs fcfs = new Fcfs(processesCount);
                             fcfs.Calculate(processData);
                             break;
 
                         case "2":
-                            Console.WriteLine("Choosed SJF");
+                            Console.WriteLine("Chosen SJF");
                             Console.WriteLine(" ");
                             Sjf sjf = new Sjf(processesCount);
                             sjf.Calculate(processData);
                             break;
 
                         case "3":
-                            Console.WriteLine("Choosed RR");
+                            Console.WriteLine("Chosen RR");
                             Console.WriteLine(" ");
                             Rr rr = new Rr(processesCount);
                             rr.Calculate(processData);
                             break;
                         
                         case "4":
-                            Console.WriteLine("Choosed Priority Scheduling with aging");
+                            Console.WriteLine("Chosen PS");
                             Console.WriteLine(" ");
                             Ps ps = new Ps(processesCount);
                             ps.Calculate(processData);
